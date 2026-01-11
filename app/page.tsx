@@ -12,6 +12,7 @@ import {
   closestCorners,
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
+import { Sparkles } from 'lucide-react';
 import BoardColumn from '@/components/BoardColumn';
 import AddTaskForm from '@/components/AddTaskForm';
 import LanguageToggle from '@/components/LanguageToggle';
@@ -26,7 +27,6 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
 
-  // Load tasks from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -38,7 +38,6 @@ export default function Home() {
     }
   }, []);
 
-  // Save to localStorage whenever tasks change
   useEffect(() => {
     if (tasks.length > 0 || localStorage.getItem(STORAGE_KEY)) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
@@ -81,7 +80,6 @@ export default function Home() {
     const taskId = active.id as string;
     const newStatus = over.id as TaskStatus;
 
-    // Update task status
     if (['todo', 'inProgress', 'done'].includes(newStatus)) {
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -90,7 +88,6 @@ export default function Home() {
       );
     }
 
-    // Handle reordering within same column
     const activeTask = tasks.find((t) => t.id === active.id);
     const overTask = tasks.find((t) => t.id === over.id);
 
@@ -109,21 +106,19 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen p-8 relative overflow-hidden">
+    <main className="min-h-screen p-8 relative">
       <LanguageToggle />
 
-      {/* Background effects */}
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[120px] animate-pulse delay-1000" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50 mb-2">
-            {t.title}
-          </h1>
-          <p className="text-white/40 text-sm tracking-widest uppercase">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <Sparkles size={40} strokeWidth={3} className="text-amber-500" fill="currentColor" />
+            <h1 className="text-6xl font-black tracking-tighter text-black uppercase">
+              {t.title}
+            </h1>
+            <Sparkles size={40} strokeWidth={3} className="text-pink-500" fill="currentColor" />
+          </div>
+          <p className="text-black/60 text-lg font-bold uppercase tracking-wide">
             {t.subtitle}
           </p>
         </header>
@@ -138,7 +133,7 @@ export default function Home() {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {columns.map((column) => (
               <BoardColumn
                 key={column.id}
@@ -152,7 +147,7 @@ export default function Home() {
 
           <DragOverlay>
             {activeTask ? (
-              <div className="rotate-6 opacity-80">
+              <div className="rotate-12 scale-110">
                 <TaskCard task={activeTask} onDelete={() => { }} />
               </div>
             ) : null}

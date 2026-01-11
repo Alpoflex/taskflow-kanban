@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { cn } from '@/lib/utils';
 
 interface AddTaskFormProps {
     onAdd: (title: string) => void;
@@ -27,29 +26,29 @@ export default function AddTaskForm({ onAdd }: AddTaskFormProps) {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="w-full glass hover:bg-white/10 rounded-xl p-4 flex items-center gap-2 text-white/60 hover:text-white transition-all group"
+                className="w-full bg-gradient-to-r from-amber-500 to-orange-600 brutal-btn rounded-xl p-5 flex items-center justify-center gap-3 text-white hover:from-amber-600 hover:to-orange-700"
             >
-                <Plus size={20} className="group-hover:rotate-90 transition-transform" />
-                <span className="text-sm font-medium">{t.actions.addTask}</span>
+                <Plus size={24} strokeWidth={3} />
+                <span className="text-lg uppercase tracking-tight font-black">{t.actions.addTask}</span>
             </button>
         );
     }
 
     return (
-        <form onSubmit={handleSubmit} className="glass rounded-xl p-4">
+        <form onSubmit={handleSubmit} className="bg-white brutal-card rounded-xl p-6">
             <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={t.actions.taskPlaceholder}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary/50 focus:bg-white/10 transition-all placeholder:text-white/30 mb-3"
+                className="w-full brutal-input rounded-lg px-4 py-3 text-base font-semibold placeholder:text-black/40 mb-4"
                 autoFocus
             />
-            <div className="flex gap-2">
+            <div className="flex gap-3">
                 <button
                     type="submit"
                     disabled={!title.trim()}
-                    className="flex-1 bg-primary hover:bg-primary/80 disabled:opacity-50 text-white rounded-lg px-4 py-2 text-sm font-medium transition-all"
+                    className="flex-1 bg-emerald-500 text-white brutal-btn rounded-lg px-6 py-3 text-base uppercase tracking-tight hover:bg-emerald-600 font-black"
                 >
                     {t.actions.addTask}
                 </button>
@@ -59,9 +58,9 @@ export default function AddTaskForm({ onAdd }: AddTaskFormProps) {
                         setIsOpen(false);
                         setTitle('');
                     }}
-                    className="px-4 py-2 text-sm text-white/60 hover:text-white transition-colors"
+                    className="px-6 py-3 bg-red-500 text-white brutal-btn rounded-lg hover:bg-red-600 uppercase tracking-tight font-black"
                 >
-                    Cancel
+                    <X size={20} strokeWidth={3} />
                 </button>
             </div>
         </form>

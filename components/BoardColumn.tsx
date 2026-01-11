@@ -14,23 +14,39 @@ interface BoardColumnProps {
     onDeleteTask: (id: string) => void;
 }
 
+const COLUMN_STYLES = {
+    todo: 'bg-amber-500 border-amber-700 text-white',
+    inProgress: 'bg-emerald-500 border-emerald-700 text-white',
+    done: 'bg-rose-500 border-rose-700 text-white',
+};
+
 export default function BoardColumn({ title, status, tasks, onDeleteTask }: BoardColumnProps) {
     const { setNodeRef } = useDroppable({
         id: status,
     });
 
-    return (
-        <div className="flex flex-col h-full min-w-[300px] glass rounded-2xl p-6">
-            <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                {title}
-                <span className="ml-auto text-sm text-white/40">({tasks.length})</span>
-            </h2>
+    const columnStyle = COLUMN_STYLES[status];
 
+    return (
+        <div className="flex flex-col h-full min-w-[320px]">
+            {/* Column Header */}
+            <div className={cn(
+                "mb-4 p-4 border-4 border-black font-black text-lg uppercase tracking-tight",
+                columnStyle
+            )}>
+                <div className="flex items-center justify-between">
+                    <span>{title}</span>
+                    <span className="px-3 py-1 bg-black text-white text-sm font-bold rounded-full">
+                        {tasks.length}
+                    </span>
+                </div>
+            </div>
+
+            {/* Tasks Container */}
             <div
                 ref={setNodeRef}
                 className={cn(
-                    "flex-1 space-y-3 overflow-y-auto custom-scrollbar pr-2 min-h-[200px]",
+                    "flex-1 space-y-3 overflow-y-auto custom-scrollbar pr-2 p-4 bg-white/40 border-4 border-black rounded-lg min-h-[400px]",
                     tasks.length === 0 && "flex items-center justify-center"
                 )}
             >
@@ -45,8 +61,8 @@ export default function BoardColumn({ title, status, tasks, onDeleteTask }: Boar
                                 />
                             ))
                         ) : (
-                            <div className="text-center text-white/20 text-sm italic">
-                                Drop tasks here
+                            <div className="text-center text-black/30 text-sm font-bold uppercase">
+                                Drop Here
                             </div>
                         )}
                     </AnimatePresence>
