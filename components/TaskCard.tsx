@@ -38,7 +38,6 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
         transition,
     };
 
-    // Assign consistent color based on task ID
     const colorIndex = task.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % CARD_COLORS.length;
     const bgColor = CARD_COLORS[colorIndex];
 
