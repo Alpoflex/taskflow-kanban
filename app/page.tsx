@@ -111,14 +111,14 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto">
         <header className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
+          <div className="inline-flex items-center gap-3 mb-4 bg-white px-8 py-4 rounded-2xl border-4 border-black shadow-[8px_8px_0_0_#000]">
             <Sparkles size={40} strokeWidth={3} className="text-amber-500" fill="currentColor" />
             <h1 className="text-6xl font-black tracking-tighter text-black uppercase">
               {t.title}
             </h1>
             <Sparkles size={40} strokeWidth={3} className="text-pink-500" fill="currentColor" />
           </div>
-          <p className="text-black/60 text-lg font-bold uppercase tracking-wide">
+          <p className="text-black font-bold uppercase tracking-wide text-lg bg-emerald-400 inline-block px-6 py-2 rounded-full border-3 border-black">
             {t.subtitle}
           </p>
         </header>

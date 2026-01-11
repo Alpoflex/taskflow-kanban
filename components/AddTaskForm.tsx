@@ -41,7 +41,7 @@ export default function AddTaskForm({ onAdd }: AddTaskFormProps) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={t.actions.taskPlaceholder}
-                className="w-full brutal-input rounded-lg px-4 py-3 text-base font-semibold placeholder:text-black/40 mb-4"
+                className="w-full brutal-input rounded-lg px-4 py-3 text-base font-semibold text-black placeholder:text-black/40 mb-4"
                 autoFocus
             />
             <div className="flex gap-3">
